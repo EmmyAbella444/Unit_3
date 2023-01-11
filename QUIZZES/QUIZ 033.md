@@ -1,5 +1,6 @@
 
 # QUIZ 33
+![Screen Shot 2023-01-11 at 9 45 13](https://user-images.githubusercontent.com/111819437/211691887-d1c7b3b7-6ae6-471a-bd34-3feaccba7129.png)
 
 ## CODE
 ```.py
