@@ -4,7 +4,7 @@
 
 ## Layout.kv
 
-```.
+```.kv
 # Layout_demo_kv
 Screen:
     size: 500,500
@@ -190,9 +190,13 @@ class layout_bits(MDApp):
         user_start = int(self.root.ids.user_start_x.text)
         self.amount = user_start
         if "convert" in name:
-            if self.amount>7 and self.amount <8192:
+
+            if self.amount<8:
+                self.root.ids.counter_label.text = f"{self.amount}bits"
+
+            elif self.amount>7 and self.amount <8192:
                 self.amount = self.amount // 8
-                self.root.ids.counter_label.text = f"{self.amount}bytes"
+                self.root.ids.counter_label.text = f"{self.amount}byte"
 
             elif self.amount >8191 and self.amount<8388608:
                 self.amount = self.amount // 8192
@@ -222,6 +226,13 @@ class layout_bits(MDApp):
 
 convert_class = layout_bits()
 convert_class.run()
+
+
+
+
+
+
+
 
 ```
 ## Evidence
