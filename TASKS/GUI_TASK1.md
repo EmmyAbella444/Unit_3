@@ -1,5 +1,5 @@
 
-### TASK 1 SL
+# TASK 1 SL
 ![Screen Shot 2023-01-31 at 9 00 24](https://user-images.githubusercontent.com/111819437/215644792-96fe490e-561d-4529-b999-5bedec9b6572.png)
 
 ## Layout.kv
@@ -32,10 +32,6 @@ Screen:
             pos_hint: {"center_x":.13,}
             on_text: app.set_counter
 
-
-
-
-
         MDBoxLayout:
             id: second_box
             orientation: "horizontal"
@@ -67,7 +63,7 @@ Screen:
 
 ```
 
-## CODE PY
+## Code.py
 
 ```.py
 #converter_task1.py
@@ -106,7 +102,7 @@ convert_class.run()
 
 
 
-### TASK 1 HL
+# TASK 1 HL
 
 ![Screen Shot 2023-01-31 at 9 00 58](https://user-images.githubusercontent.com/111819437/215645369-dc55a218-b1da-4b6a-a417-9b013e41a05c.png)
 
