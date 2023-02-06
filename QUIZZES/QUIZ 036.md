@@ -73,3 +73,7 @@ def test_average():
 
 ![Screen Shot 2023-01-19 at 22 56 01](https://user-images.githubusercontent.com/111819437/213460821-a08fc1f8-b488-47f4-af6c-2666129edcf3.png)
 
+## UML DIAGRAM
+![Screen Shot 2023-02-06 at 11 18 38](https://user-images.githubusercontent.com/111819437/216868154-48c1ab9b-b23e-48b9-91e9-3f5030692817.png)
+
+
