@@ -38,3 +38,8 @@ print(Save.Calculate())
 ## EVIDENCE
 
 ![Screen Shot 2023-01-19 at 22 57 38](https://user-images.githubusercontent.com/111819437/213461240-4aace399-eae6-479f-b0d7-008a1bfd717d.png)
+
+
+## UML DIAGRAM
+![Screen Shot 2023-02-06 at 11 27 20](https://user-images.githubusercontent.com/111819437/216869420-6f90be1b-ba62-48b4-97b6-433e6ec32897.png)
+
