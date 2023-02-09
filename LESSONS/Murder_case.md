@@ -1,4 +1,4 @@
-# SOLUTION
+## SOLUTION
 ```.kv
 SELECT * from crime_scene_report where city="SQL City" and type="murder";
 --- Someone killed the guard! He took an arrow to the knee!
@@ -59,7 +59,7 @@ INSERT INTO solution values(1,"Miranda Priestly");
 SELECT value FROM solution;
 ```
 
-# EVIDENCE
+## EVIDENCE
 
 
 
