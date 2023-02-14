@@ -1,5 +1,8 @@
 # QUIZ 043
 
+![Screen Shot 2023-02-14 at 22 33 35](https://user-images.githubusercontent.com/111819437/218753680-4ffb4d05-cd44-46b4-8db1-a30c347bb6c8.png)
+
+
 
 ## CODE
 ```.kv
