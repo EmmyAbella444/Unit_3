@@ -4,7 +4,7 @@
 ![Screen Shot 2023-02-14 at 23 02 30](https://user-images.githubusercontent.com/111819437/218767547-e452fc1e-d589-441a-8c9a-3372cd4e6c14.png)
 
 ## Code and evidence
-```.kv
+```.py
 SELECT * from customers;
 SELECT *from accounts;
 
