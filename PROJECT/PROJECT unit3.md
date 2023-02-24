@@ -33,7 +33,7 @@ To store the information I will use the SQL lite database,because it is optimize
 # Criteria B: Design
 ## System Diagram
 ![Habit Tracker (1)](https://user-images.githubusercontent.com/111819437/221175995-de796e99-0cd0-4adc-b9dc-2a47f8e016a4.png)
-
+Fig1.Figure 1 - The System diagram for the application is illustrated in Figure 1,for the application. As shown in the figure 1, the application uses PyCharm and the libraries: KivyMD Library,Connect_database and Secure_password to develop the program. The arrows represent the data that is stored in the database Project.db, using the SQLite database engine.
 
 
 ## Flow Diagram
