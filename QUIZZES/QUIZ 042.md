@@ -1,4 +1,5 @@
 # QUIZ 042
+![Screen Shot 2023-02-24 at 10 00 22](https://user-images.githubusercontent.com/111819437/221066112-c0038ec5-196d-448a-b164-8ee5d590408a.png)
 
 
 ## CODE
