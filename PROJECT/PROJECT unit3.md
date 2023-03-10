@@ -7,11 +7,12 @@ Fig.1 Authoral design
 
 
 ## Problem definition
-Sabuhi Abassov, an ambitious and hard-working first-year International Baccalaureate (IB) student at UWC ISAK Japan, has a lot on his plate. With a rigorous academic curriculum, extracurricular activities, and a bustling social life, his schedule is completely jam-packed which made it challenging for him to have productive days and maintain a consistent routine. Despite his best efforts to stay organized and productive, Sabuhi has been struggling to keep up with his daily habits and maintain a consistent routine. As a result, Sabuhi is searching for a solution to help him monitor his habits and improve his overall lifestyle.
+Sabuhi Abassov, an ambitious and hard-working first-year International Baccalaureate (IB) student at UWC ISAK Japan, has a lot on his plate. With a rigorous academic curriculum, extracurricular activities, and a bustling social life, his schedule is completely jam-packed which made it challenging for him to have productive days and maintain a consistent routine. Despite his best efforts to stay organized and productive, Sabuhi has been struggling to keep up with his daily habits and maintain a consistent routine. As a result, Sabuhi is in need for a solution to help him monitor his habits and improve his overall lifestyle.
 
 ## Proposed Solution
-Recognizing the difficulties Sabuhi has been facing with productivity I decided to develop an Habit Tracker. This tracker will allow Sabuhi to mark his daily activities, monitor his progress, and track his habits to ensure that he stays on track with his goals.The Habit Tracker will be tailored to Sabuhi's needs and will be designed to help him focus on the areas that require improvement. By using this tool, Sabuhi can identify which habits are hindering his productivity and which ones are helping him achieve his goals. Additionally, the Habit Tracker will provide a notes session for each day to allow him reflect on his day. 
-
+### Design Statement
+Recognizing the difficulties Sabuhi has been facing with productivity I decided to develop an Habit Tracker. This tracker will allow Sabuhi to mark his daily activities, monitor his progress, and track his habits to ensure that he stays on track with his goals.The Habit Tracker will be tailored to Sabuhi's needs and will be designed to help him focus on the areas that require improvement. By using this tool, Sabuhi can identify which habits are hindering his productivity and which ones are helping him achieve his goals. Additionally, the Habit Tracker will provide a notes session for each day to allow him reflect on his day and a space to addhow he is feeling 8uy
+### RATIONALE
 To make the solution I will use the program language Python, because is a highly versatile programming that can be used for various applications, including web development, scientific computing, data analysis, and artificial intelligence. It has a supportive and engaged community, straightforward syntax, and is well-suited for quickly building applications with fewer errors.
 
 I will also use the Kivy MD library to make the interface because it enables the creation of cross-platform applications for Android, iOS, and Windows. It is user-friendly and provides various customization options for creating unique applications with less effort.
@@ -23,12 +24,9 @@ To store the information I will use the SQL lite database,because it is optimize
 ## Design Statement
 
 ## Success Criteria
-1. The solution should enable users to track their daily habits, including working out, studying, reading, journaling, and water intake.
-2. The solution must include a user-friendly interface that enables Sabuhi to easily mark his daily activities and track his progress. 
-3. The solution should be customizable to the user's needs, allowing him to add or remove habits as needed.
-4. The solution must incorporate data visualization tools to help Sabuhi identify trends and patterns in his habits and productivity.
-5. The solution must be designed with security and privacy in mind, with measures in place to protect Sabuhi's data.
-6. The solution must iclude a notes session for each day.
+1. The solution should enable users to track their daily habits, including working out, studying, reading, journaling, water intake and sleeping.
+2. The solution must be designed with security and privacy in mind, with measures in place to protect Sabuhi's data.
+3. The solution must iclude a notes session for each day.
 
 # Criteria B: Design
 ## System Diagram
