@@ -25,14 +25,24 @@ To store the information I will use the SQL lite database,because it is optimize
 
 ## Success Criteria
 1. The solution should enable users to track their daily habits, including working out, studying, reading, journaling, water intake and sleeping.
-2. The solution must be designed with security and privacy in mind, with measures in place to protect Sabuhi's data.
+2. The solution must be designed with security and privacy in mind, with measures to protect the user's data.
 3. The solution must iclude a notes session for each day.
+4. The solution must provide a way for the user to vizualize their progress.
+5. The solutions must provide a session to monitorize the mental health of the user.
+6. The solution must provide an option to delete days.
 
 # Criteria B: Design
 ## System Diagram
 ![Habit Tracker (1)](https://user-images.githubusercontent.com/111819437/221175995-de796e99-0cd0-4adc-b9dc-2a47f8e016a4.png)
 Fig1.Figure 1 - The System diagram for the application is illustrated in Figure 1,for the application. As shown in the figure 1, the application uses PyCharm and the libraries: KivyMD Library,Connect_database and Secure_password to develop the program. The arrows represent the data that is stored in the database Project.db, using the SQLite database engine.
 
+## Wireframe
+![Screen Shot 2023-03-11 at 17 59 32](https://user-images.githubusercontent.com/111819437/224475360-a310079e-ca8e-404a-8c1f-27ccd9935d21.png)
+
+## UML Diagram
+
+## ER Diagram
+![pycharm_logo_256](https://user-images.githubusercontent.com/111819437/224589945-25bf6871-37d9-476e-b17a-4f3106b41a5d.png)
 
 ## Flow Diagram
 
