@@ -30,10 +30,12 @@ To store the information I will use the SQL lite database,because it is optimize
 # Criteria B: Design
 ## System Diagram
 ![Habit Tracker (1)](https://user-images.githubusercontent.com/111819437/221175995-de796e99-0cd0-4adc-b9dc-2a47f8e016a4.png)
-Fig1.Figure 1 - The System diagram for the application is illustrated in Figure 1,for the application. As shown in the figure 1, the application uses PyCharm and the libraries: KivyMD Library,Connect_database and Secure_password to develop the program. The arrows represent the data that is stored in the database Project.db, using the SQLite database engine.
+Fig1-Figure 1 depicts the system diagram of the application. The application use PyCharm as well as the KivyMD Library, Connect_database, and Secure_password libraries to create the program. The arrows in the diagram indicate the data that is stored in the Project.db database, which utilizes the SQLite database engine.
+
 
 ## Wireframe
 ![Screen Shot 2023-03-11 at 17 59 32](https://user-images.githubusercontent.com/111819437/224475360-a310079e-ca8e-404a-8c1f-27ccd9935d21.png)
+Figure 2 illustrates the wireframe design of the program interface. Upon accessing the Login screen, the user is presented with two options: to log in or register. Opting to register will redirect the user to the Registration page, featuring text fields prompting for a username, email, and password. After successful registration, the user is directed back to the Login screen. Once the user logs in successfully, they will be directed to the Main screen, which features three options: "Add new day," "Check your progress," and "Log out." Choosing "Add new day" leads the user to the "Add" page, where they can input data in the checkboxes and text fields and then choosing to add the new entry to the database or return to the Main screen. Selecting the "Check your progress" button in the Main screen takes the user to the Progress page, where a table displays the user's progress. Here, the user can view their progress, delete an entry, or return to the Main screen. Lastly, the "Log out" button on the Main screen logs the user out and redirects them to the Login screen.
 
 ## UML Diagram
 
