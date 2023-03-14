@@ -12,12 +12,17 @@ Sabuhi Abassov, an ambitious and hard-working first-year International Baccalaur
 ## Proposed Solution
 ### Design Statement
 Recognizing the difficulties Sabuhi has been facing with productivity I decided to develop an Habit Tracker. This tracker will allow Sabuhi to mark his daily activities, monitor his progress, and track his habits to ensure that he stays on track with his goals.The Habit Tracker will be tailored to Sabuhi's needs and will be designed to help him focus on the areas that require improvement. By using this tool, Sabuhi can identify which habits are hindering his productivity and which ones are helping him achieve his goals. Additionally, the Habit Tracker will provide a notes session for each day to allow him reflect on his day and a space to addhow he is feeling 8uy
+
 ### RATIONALE
-To make the solution I will use the program language Python, because is a highly versatile programming that can be used for various applications, including web development, scientific computing, data analysis, and artificial intelligence. It has a supportive and engaged community, straightforward syntax, and is well-suited for quickly building applications with fewer errors.
 
-I will also use the Kivy MD library to make the interface because it enables the creation of cross-platform applications for Android, iOS, and Windows. It is user-friendly and provides various customization options for creating unique applications with less effort.
+To create a comprehensive and effective solution, I have decided to use Python as the primary programming language. Python is an incredibly versatile programming language that can be used for a wide range of applications, such as web development, scientific computing, data analysis, and artificial intelligence. This is possible because Python has a supportive and engaged community that provides comprehensive documentation, making it easy to learn and use.
 
-To store the information I will use the SQL lite database,because it is optimized for efficiently managing and storing large amounts of data, which makes it a reliable choice for applications that need to handle and scale with growing amounts of data. It enables the storage of structured data that can be easily queried and analyzed, while also providing data integrity and transaction management features to ensure data accuracy and consistency.
+Furthermore, Python has a straightforward syntax that is easy to read and write, which makes it well-suited for quickly building applications with fewer errors. This ensures that the solution I create will be efficient, reliable, and easily maintainable in the long term.
+
+In addition to Python, I will be using the Kivy MD library to create the program's user interface. This library enables the creation of cross-platform applications for Android, iOS, and Windows, which is essential in today's digital landscape. It provides a wide range of customization options, making it possible to create unique and visually appealing applications with minimal effort. Furthermore, the Kivy MD library is user-friendly, allowing me to create an intuitive user interface that will enhance the user experience.
+
+To store the data, I will be using the SQLite database engine. This database engine is optimized for efficiently managing and storing large amounts of data, which makes it a reliable choice for applications that need to handle and scale with growing amounts of data. The SQLite database engine enables the storage of structured data that can be easily queried and analyzed, while also providing data integrity and transaction management features to ensure data accuracy and consistency. This will enable me to create a robust and reliable solution that can handle a significant amount of data while maintaining data accuracy and consistency.
+
 
 ## Success Criteria
 1. The solution should enable users to track their daily habits, including working out, studying, reading, journaling, water intake and sleeping.
@@ -30,18 +35,24 @@ To store the information I will use the SQL lite database,because it is optimize
 # Criteria B: Design
 ## System Diagram
 ![Habit Tracker (1)](https://user-images.githubusercontent.com/111819437/221175995-de796e99-0cd0-4adc-b9dc-2a47f8e016a4.png)
-Fig1-Figure 1 depicts the system diagram of the application. The application use PyCharm as well as the KivyMD Library, Connect_database, and Secure_password libraries to create the program. The arrows in the diagram indicate the data that is stored in the Project.db database, which utilizes the SQLite database engine.
+
+Figure 2 depicts the system diagram of the application. The application use PyCharm as well as the KivyMD Library, Connect_database, and Secure_password libraries to create the program. The arrows in the diagram indicate the data that is stored in the Project.db database, which utilizes the SQLite database engine.
 
 
 ## Wireframe
 ![Screen Shot 2023-03-11 at 17 59 32](https://user-images.githubusercontent.com/111819437/224475360-a310079e-ca8e-404a-8c1f-27ccd9935d21.png)
-Figure 2 illustrates the wireframe design of the program interface. Upon accessing the Login screen, the user is presented with two options: to log in or register. Opting to register will redirect the user to the Registration page, featuring text fields prompting for a username, email, and password. After successful registration, the user is directed back to the Login screen. Once the user logs in successfully, they will be directed to the Main screen, which features three options: "Add new day," "Check your progress," and "Log out." Choosing "Add new day" leads the user to the "Add" page, where they can input data in the checkboxes and text fields and then choosing to add the new entry to the database or return to the Main screen. Selecting the "Check your progress" button in the Main screen takes the user to the Progress page, where a table displays the user's progress. Here, the user can view their progress, delete an entry, or return to the Main screen. Lastly, the "Log out" button on the Main screen logs the user out and redirects them to the Login screen.
+
+Figure 3 illustrates the wireframe design of the program interface. Upon accessing the Login screen, the user is presented with two options: to log in or register. Opting to register will redirect the user to the Registration page, featuring text fields prompting for a username, email, and password. After successful registration, the user is directed back to the Login screen. Once the user logs in successfully, they will be directed to the Main screen, which features three options: "Add new day," "Check your progress," and "Log out." Choosing "Add new day" leads the user to the "Add" page, where they can input data in the checkboxes and text fields and then choosing to add the new entry to the database or return to the Main screen. Selecting the "Check your progress" button in the Main screen takes the user to the Progress page, where a table displays the user's progress. Here, the user can view their progress, delete an entry, or return to the Main screen. Lastly, the "Log out" button on the Main screen logs the user out and redirects them to the Login screen.
 
 ## UML Diagram
 
 ## ER Diagram
 ![Habit Tracker (2)](https://user-images.githubusercontent.com/111819437/224590115-dbef85b4-d4eb-4be8-860b-931aa6b0109c.png)
 
+In Figure 5, it is illustrated the Entity Relationship (ER) diagram for the application, which provides a visual representation of the database schema. The ER diagram shows the two tables that exist within the database: "users" and "habits"
+The first table is called "users," and it is responsible for storing all user-related information such as their username, email, and password. This table is essential for the application's functionality since it enables users to register and log in to the program, allowing them to access their data and track their progress over time.
+The second table is called "habits," and it stores information about the users' habits, such as sleep, water intake, reading, journaling, gym , studying, overall, total ,notes, date, id, and user. The habits table is closely related to the users' table since each user will have their set of habits and associated data stored within this table.
+By using a database schema with two tables, we can ensure that the data is organized, easy to manage, and efficient to query. The users' table stores all user data, which enables efficient user management, while the habits table allows the program to track and analyze each user's progress over time. This organized data will help the application function more effectively, enabling users to easily track their progress and achieve their goals.
 
 ## Flow Diagram
 
