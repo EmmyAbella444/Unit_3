@@ -19,10 +19,6 @@ I will also use the Kivy MD library to make the interface because it enables the
 
 To store the information I will use the SQL lite database,because it is optimized for efficiently managing and storing large amounts of data, which makes it a reliable choice for applications that need to handle and scale with growing amounts of data. It enables the storage of structured data that can be easily queried and analyzed, while also providing data integrity and transaction management features to ensure data accuracy and consistency.
 
-
-
-## Design Statement
-
 ## Success Criteria
 1. The solution should enable users to track their daily habits, including working out, studying, reading, journaling, water intake and sleeping.
 2. The solution must be designed with security and privacy in mind, with measures to protect the user's data.
@@ -50,9 +46,13 @@ Fig1.Figure 1 - The System diagram for the application is illustrated in Figure 
 
 
 ## Test Plan
-| Description | Type | Inputs | Outputs | 
-| ----------- | ---- | ------ | ------- |
-
+| Description                                 	| Type                            	| Inputs                                                                             	| Outputs                                                                                                  	|
+|---------------------------------------------	|---------------------------------	|------------------------------------------------------------------------------------	|----------------------------------------------------------------------------------------------------------	|
+| Test if the program runs without any error  	| Functional: Integration testing 	| Run program                                                                        	| Program runs with 0 exit code                                                                            	|
+| Test if registration page works             	| Functional: Integration testing 	| Register, Sabuhi, 2024.sabuhi.abossov@uwcisak.jp, Sabuhi@123, Sabuhi@123, Register 	| It added the information to the database, showed pop up diaolog and bring user to the log in page        	|
+| Test if log in page works                   	| Functional: Integration testing 	| Sabuhi, 2024.sabuhi.abossov@uwcisak.jp, Sabuhi@123,Log in                          	| It checked the information on the database, showed pop up diaolog and bring user to the main screen page 	|
+| Test if add new day work                    	| Functional: Integration testing 	| Checkboxes, Notes, slider date picker, add new day                                 	| It added the new item to the database                                                                    	|
+| Check if table shows the correct data       	| Non-functional: Load testing    	| Log in, Check your progress                                                        	| It shows the correct data inputted by that user                                                          	|
 
 
 
