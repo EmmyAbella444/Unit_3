@@ -65,11 +65,11 @@ The figure 6 is a flowchart fot the create_table method that creates a database 
 ## Flow diagram fo the log in function
 ![flow diagram 2 (1)](https://user-images.githubusercontent.com/111819437/225430359-613aa6c9-e5a7-4a12-a8f5-006a83721d42.png)
 
-The figure 6 is a flowchart for the log in function that first,retrieves the inputted username and password from the relevant text input fields. Then, it queries the database for a user with the matching username, using a SELECT statement.If a matching user is found in the database, the code checks whether the inputted password is correct by comparing it with the hashed password stored in the database. If the password is correct, the user ID associated with that account is retrieved from the database and assigned as an attribute to the MainScreen instance. Then, the application's current screen is changed to the main screen. Finally, the input fields are reset.If no matching user is found in the database or the password is incorrect, an error message is displayed using a dialog box. The input fields are also reset in this case to allow the user to try again.
+The figure 7 is a flowchart for the log in function that first,retrieves the inputted username and password from the relevant text input fields. Then, it queries the database for a user with the matching username, using a SELECT statement.If a matching user is found in the database, the code checks whether the inputted password is correct by comparing it with the hashed password stored in the database. If the password is correct, the user ID associated with that account is retrieved from the database and assigned as an attribute to the MainScreen instance. Then, the application's current screen is changed to the main screen. Finally, the input fields are reset.If no matching user is found in the database or the password is incorrect, an error message is displayed using a dialog box. The input fields are also reset in this case to allow the user to try again.
 
 ## Flow diagram for save function
 ![flow diagram 2 (2)](https://user-images.githubusercontent.com/111819437/225434915-132a21c9-5990-446d-9743-cda07ae56578.png)
-The function begins by retrieving the values entered by the user for the date, notes, and overall rating. It then retrieves the user id and the values of checkboxes that indicate the user's progress in different areas (e.g. gym, studying, sleeping, etc.). It calculates the total of the checkboxes to get an total progress score. Next, the function checks to make sure that all the required fields have been filled in by the user. If any of them are missing, an error message is displayed and the function returns without saving the progress data.The function then checks the database to see if progress data has already been added for the current day by the user. If it has, an error message is displayed and the function returns without saving the progress data.If progress data has not already been added for the current day, the function inserts the progress data into the database. Finally, a success message is displayed to the user to indicate that their progress has been saved.
+The figure 8 is a flowchart for the function save that begins by retrieving the values entered by the user for the date, notes, and overall rating. It then retrieves the user id and the values of checkboxes that indicate the user's progress in different areas (e.g. gym, studying, sleeping, etc.). It calculates the total of the checkboxes to get an total progress score. Next, the function checks to make sure that all the required fields have been filled in by the user. If any of them are missing, an error message is displayed and the function returns without saving the progress data.The function then checks the database to see if progress data has already been added for the current day by the user. If it has, an error message is displayed and the function returns without saving the progress data.If progress data has not already been added for the current day, the function inserts the progress data into the database. Finally, a success message is displayed to the user to indicate that their progress has been saved.
 
 
 
@@ -120,6 +120,17 @@ The function begins by retrieving the values entered by the user for the date, n
 
 # Criteria C: Development
 ## Existing tools
+
+| Software/Development tools    	| Coding Structure Tools        	| Libraries         	|
+|-------------------------------	|-------------------------------	|-------------------	|
+| PyCharm professional 2022.3.2 	| OOP Structures (classes)      	| Kivymd.app        	|
+| Python                        	| SQL requests                  	| sqlite3           	|
+| SQlite                        	| Database                      	| passlib           	|
+| KivyMD                        	| Encryption                    	| re                	|
+| Github Copilot                	| For loops                     	| database_handler  	|
+| codeGPT                       	| If-else statements            	| encrypto_password 	|
+|                               	| ORM (Object Relation Mapping) 	|                   	|
+|                               	| Index                         	|                   	|
 
 ## Development
 ### Success criteria 1: The solution should enable users to track their daily habits, including working out, studying, reading, journaling, water intake and sleeping.
