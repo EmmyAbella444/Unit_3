@@ -98,7 +98,7 @@ By using a database schema with two tables, we can ensure that the data is organ
 | 24      	| Add the development of each success criterias                                                                                  	| Write how the criteria was developed                                                                                  	| 2 hours       	| 2 march                	| B         	|
 | 25      	| Improve the documentation - criteria C                                                                                         	| Add more explanations                                                                                                 	| 30 minutes    	| 3 march                	| C         	|
 | 26      	| Fix the errors pointed on the test plan                                                                                        	| Improve the code functionality                                                                                        	| 3 hours       	| 6 march                	| C         	|
-| 27      	| Present the final product to client                                                                                            	| Gte final approve                                                                                                     	| 20 minutes    	| 8 march                	|           	|
+| 27      	| Present the final product to client                                                                                            	| Get final approve                                                                                                     	| 20 minutes    	| 8 march                	|       C    	|
 | 28      	| Record video of program working                                                                                                	| Video of program working with explanations about the functionality                                                    	| 1 hour        	| 7 march                	| C         	|
 
 # Criteria C: Development
@@ -377,9 +377,7 @@ MDLabel:
 ```
 
 ### Success criteria 4: The solution must provide a way for the user to vizualize their progress.
-To fulfill this criteria, I have created a screen named "TableScreen" which contains a data table to visualize the progress of the user. The table is implemented using KivyMD's MDDataTable widget. The screen also includes functions to handle events when a row or check mark is pressed. To improve the users experience while using the app,I created a function to delete a row, whena ow is checked , it gets the checked rows using the get_row_checks method of the data table widget and deletes them from the database using an SQL query.
-
-Finally, the update function is used to populate the table with data. It first retrieves the user ID from the main screen and then queries the database for habit data for that user. The data is then updated in the table using the update_row_data method of the data table widge, and only showing the data of that specific user.
+To fulfill this criteria, I have created a screen named "TableScreen" which contains a data table to visualize the progress of the user. The table is implemented using KivyMD's MDDataTable widget.The update function is used to populate the table with data. It first retrieves the user ID from the main screen and then queries the database for habit data for that user. The data is then updated in the table using the update_row_data method of the data table widge, and only showing the data of that specific user.In this way the user is able to vizualize their progress.
 KV file:
 ```.kv
 <TableScreen>:
@@ -440,36 +438,6 @@ class TableScreen(MDScreen):
 
                          ]
         )
-
-        # Bind row and check press events to their respective functions
-        self.data_table.bind(on_row_press=self.row_pressed)
-        self.data_table.bind(on_check_press=self.check_pressed)
-
-        # Add the table to the GUI
-        self.add_widget(self.data_table)
-
-        # Call the update function to populate the table with data
-        self.update()
-
-    # Function to be called when a row is pressed
-    def row_pressed(self, table, row):
-        print("a row was pressed", row.text)
-
-    # Function to be called when a check mark is pressed
-    def check_pressed(self, table, current_row):
-        print("a check mark was pressed", current_row)
-
-    # Function to delete checked rows from the table and database
-    def delete(self):
-        checked_rows = self.data_table.get_row_checks()
-        db = database_handler("Project.db")
-        for r in checked_rows:
-            id = r[0]
-            query = f"delete from HABITS where id={id}"
-            db.run_save(query)
-        db.close()
-        self.update()
-
     # Function to update the data table with habit data for the current user
     def update(self):
         # Get the current user ID from the main screen
@@ -485,6 +453,57 @@ class TableScreen(MDScreen):
         self.data_table.update_row_data(None, data)
 
 ```
+### Success criteria 5: The solutions must provide a session to monitorize the mental health of the user.
+I have successfully met the success criteria by implementing a slider widget that allows the user to rate their overall mental state on a scale of 0 to 10. The slider is identified by the unique ID "overal", and the default value is set to 5. The current value is displayed on the slider thumb, making it easy for the user to see their selected value. Additionally, there are two icon buttons, "emoticon-sad-outline" and "emoticon-happy-outline", which makes it easier fo the user rate their feelins that day. This visual feedback assists the user in rating their mental state accurately, and thus helps them to monitor their mental health effectively.
+
+```.kv
+                MDIconButton:
+                    icon: "emoticon-sad-outline"
+                    font_size: 20
+                    size_hint: 0.2, 1
+                    halign: "left"
+                    valign: "bottom"
+
+                MDSlider:
+                    id: overal
+                    min: 0
+                    max: 10
+                    value: 5
+                    humb_color_down: app.theme_cls.accent_color
+                    pos_hint:{"center_x":0.5, "center_y":.5}
+                    size_hint: 0.9,0.9
+                    text: overal.value
+                    step:1
+                    hint_bg_color: "white"
+
+                MDIconButton:
+                    icon: "emoticon-happy-outline"
+                    font_size: 20
+                    size_hint: 0.2, 1
+                    halign: "right"
+                    valign: "bottom"
+
+```
+### Success criteria 6: The solution must provide an option to delete days.
+To meet this success criteria, I have implemented a feature that allows the user to delete days from the screen. To achieve this, I have created a method called delete() in the TableScreen class, which is called when the user clicks on a delete button. This method retrieves the checked rows from the table, deletes them from the database, and then updates the table with the remaining data using the update() method
+```.py
+    # Function to delete checked rows from the table and database
+    def delete(self):
+        # Get the list of checked rows
+        checked_rows = self.data_table.get_row_checks()
+        
+        # Delete the checked rows from the database
+        db = database_handler("Project.db")
+        for r in checked_rows:
+            id = r[0]
+            query = f"delete from HABITS where id={id}"
+            db.run_save(query)
+        db.close()
+        
+        # Update the table with the remaining data
+        self.update()
+```
+
 # Criteria D: Functionality
 ## A 7 min video demonstrating the proposed solution with narration
 
