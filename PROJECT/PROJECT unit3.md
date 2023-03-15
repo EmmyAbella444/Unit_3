@@ -280,10 +280,139 @@ class RegistrationScreen(MDScreen):
             dialog.open()
             return
 ```
-The applications protect user data by querying the database to retrieve only the information that pertains to the specific user who is currently logged in. This is achieved through the update method, where the user's ID is retrieved from the parent screen (MainScreen) and used in a database query to retrieve only rows from the HABITS table that have the matching user value. The retrieved data is then used to update the rows in the MDDataTable instance, ensuring that only the user's relevant data is displayed in the table.
+The applications also protect user data by querying the database to retrieve only the information that pertains to the specific user who is currently logged in. This is achieved through the update method, where the user's ID is retrieved from the parent screen (MainScreen) and used in a database query to retrieve only rows from the HABITS table that have the matching user value. The retrieved data is then used to update the rows in the MDDataTable instance, ensuring that only the user's relevant data is displayed in the table.
 
 By only displaying the relevant data for each user, the code helps to protect the privacy and security of their data by preventing other users from seeing or accessing their information.
+```.py
+class TableScreen(MDScreen):
+    # Class variable
+    data_table = None
 
+    def on_pre_enter(self, *args):
+        # Create a data table with defined properties
+        self.data_table = MDDataTable(
+            size_hint=(.8, .5),
+            pos_hint={"center_x": .5, "center_y": .5},
+            use_pagination=False,
+            check=True,
+            # Define column names and widths
+            column_data=[("id", 20),
+                         ("USER", 20),
+                         ("DATE", 20),
+                         ("GYM", 20),
+                         ("STUDY", 20),
+                         ("SLEEP", 20),
+                         ("READ", 20),
+                         ("JOURNAL", 20),
+                         ("WATER", 20),
+                         ("NOTES", 20),
+                         ("OVERALL", 20),
+                         ("TOTAL", 20),
+
+                         ]
+        )
+
+        # Bind row and check press events to their respective functions
+        self.data_table.bind(on_row_press=self.row_pressed)
+        self.data_table.bind(on_check_press=self.check_pressed)
+
+        # Add the table to the GUI
+        self.add_widget(self.data_table)
+
+        # Call the update function to populate the table with data
+        self.update()
+
+    # Function to be called when a row is pressed
+    def row_pressed(self, table, row):
+        print("a row was pressed", row.text)
+
+    # Function to be called when a check mark is pressed
+    def check_pressed(self, table, current_row):
+        print("a check mark was pressed", current_row)
+
+    # Function to delete checked rows from the table and database
+    def delete(self):
+        checked_rows = self.data_table.get_row_checks()
+        db = database_handler("Project.db")
+        for r in checked_rows:
+            id = r[0]
+            query = f"delete from HABITS where id={id}"
+            db.run_save(query)
+        db.close()
+        self.update()
+
+    # Function to update the data table with habit data for the current user
+    def update(self):
+        # Get the current user ID from the main screen
+        user_id = self.parent.get_screen('MainScreen').user_id
+
+        # Query the database for habit data for the current user
+        query = f"SELECT * FROM HABITS WHERE user={user_id}"
+        db = database_handler("Project.db")
+        data = db.search(query)
+        db.close()
+
+        # Update the data table with the retrieved data
+        self.data_table.update_row_data(None, data)
+  ```
+### Success criteria 3: The solution must include a notes session for each day.
+I have satisfied the criteria by implementing KivyMD widgets to create a label and a text field. The label prompts the user to input their notes by displaying the text "How was your day?" Additionally, the input is validated to detect cases where the user has not written anything and displays an error dialog accordingly.
+```.kv
+MDLabel:
+                text:"How was your day?"
+                font_size: 15
+                halign:"center"
+                md_bg_color:"#EEE9DA"
+
+            MDTextField:
+
+                id: notes
+                text_color: "#050505"
+                multiline: True
+                size_hint_y: None
+                height: dp(150)
+                size_hint_x: None
+                width: dp(200)
+                pos_hint: {"center_x": .5, "center_y": .9}
+```
+
+### Success criteria 4: The solution must provide a way for the user to vizualize their progress.
+To fulfill this criteria, I have created a screen named "TableScreen" which contains a data table to visualize the progress of the user. The table is implemented using KivyMD's MDDataTable widget. The screen also includes functions to handle events when a row or check mark is pressed. To improve the users experience while using the app,I created a function to delete a row, whena ow is checked , it gets the checked rows using the get_row_checks method of the data table widget and deletes them from the database using an SQL query.
+
+Finally, the update function is used to populate the table with data. It first retrieves the user ID from the main screen and then queries the database for habit data for that user. The data is then updated in the table using the update_row_data method of the data table widge, and only showing the data of that specific user.
+KV file:
+```.kv
+<TableScreen>:
+    FitImage:
+        source:"inicio.png"
+
+    MDLabel:
+        text: "YOUR PROGRESS"
+        font_size: 30
+        halign: "center"
+        pos_hint: {"center_x": .5, "center_y": .8}
+
+    MDRoundFlatIconButton:
+        id: delete
+        text: "Delete one day"
+        md_bg_color:"#c7f0d0"
+        on_press:root.delete()
+        pos_hint: {"center_x": .8, "center_y": .2}
+
+    MDBoxLayout:
+        orientation: "horizontal"
+        size_hint: 1,.2
+
+        MDRoundFlatIconButton:
+            text: "GO BACK"
+            md_bg_color: "#c7f0d0"
+            icon: "logout"
+            on_press: root.parent.current = "MainScreen"
+            text_color: 'FFFFFF'
+            pos_hint: {"center_x": .1, "center_y": .15}
+```
+PY file:
+```.py
 class TableScreen(MDScreen):
     # Class variable
     data_table = None
@@ -355,7 +484,7 @@ class TableScreen(MDScreen):
         # Update the data table with the retrieved data
         self.data_table.update_row_data(None, data)
 
-
+```
 # Criteria D: Functionality
 ## A 7 min video demonstrating the proposed solution with narration
 
