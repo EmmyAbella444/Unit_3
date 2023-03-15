@@ -57,6 +57,15 @@ The second table is called "habits," and it stores information about the users' 
 By using a database schema with two tables, we can ensure that the data is organized, easy to manage, and efficient to query. The users' table stores all user data, which enables efficient user management, while the habits table allows the program to track and analyze each user's progress over time. This organized data will help the application function more effectively, enabling users to easily track their progress and achieve their goals.
 
 ## Flow Diagram
+## Flow diagram to create a new table
+![flow diagram 1 (1)](https://user-images.githubusercontent.com/111819437/225429434-8b775e10-0902-45bc-8ea4-fbca3556b70b.png)
+The figure 6 is a flowchart fot the create_table method that creates a database table called HABITS using SQL. The query variable contains an SQL command that creates the HABITS table with several columns, including id, user, date, gym, studying, sleeping, reading, journaling, water, notes, overall, and total. The id column is set as the primary key, which means that it uniquely identifies each row in the table. The if not exists clause in the CREATE TABLE command ensures that the table is only created if it doesn't already exist. This prevents an error from occurring if the table is already present in the databaseand then executes the SQL command and creates the HABITS table in the database.
+
+## Flow diagram fo the log in function
+![flow diagram 2 (1)](https://user-images.githubusercontent.com/111819437/225430359-613aa6c9-e5a7-4a12-a8f5-006a83721d42.png)
+The figure 6 is a flowchart for the log in function that first,retrieves the inputted username and password from the relevant text input fields. Then, it queries the database for a user with the matching username, using a SELECT statement.If a matching user is found in the database, the code checks whether the inputted password is correct by comparing it with the hashed password stored in the database. If the password is correct, the user ID associated with that account is retrieved from the database and assigned as an attribute to the MainScreen instance. Then, the application's current screen is changed to the main screen. Finally, the input fields are reset.If no matching user is found in the database or the password is incorrect, an error message is displayed using a dialog box. The input fields are also reset in this case to allow the user to try again.
+
+## Flow diagram for
 
 
 
@@ -204,32 +213,41 @@ class LoginScreen(MDScreen):
 
     # Method for trying to login
     def try_login(self):
-        try:
-            # Get the input username and password and print it
-            uname = self.ids.uname.text
-            passwd = self.ids.passwd.text
+    # Get the input username and password
+    uname = self.ids.uname.text
+    passwd = self.ids.passwd.text
 
-            # Create an instance of the database_handler class
-            db = database_handler(namedb="Project.db")
+    # Connect to the database
+    db = database_handler(namedb="Project.db")
+    
+    # Search for the user in the database
+    query = f"SELECT id, password FROM users WHERE username = '{uname}'"
+    result = db.search(query)
 
-            # Query the database for the user ID and password using the provided username
-            query = f"SELECT id, password FROM users WHERE username = '{uname}'"
-            result = db.search(query)
+    # Check if the user exists and the password is correct
+    if result and pwd_config.identify(result[0][1]) and check_password(result[0][1], passwd):
+        # If the user exists and the password is correct, get the user ID from the database
+        user_id = result[0][0]  
+        
+        # Set the user ID as an attribute of the MainScreen instance
+        self.parent.get_screen('MainScreen').user_id = user_id  
+        
+        # Switch to the MainScreen
+        self.parent.current = "MainScreen"
+        
+        # Reset the input fields
+        self.ids.uname.text = ""
+        self.ids.passwd.text = ""
 
-            # If the username and password are correct, login the user and go to MainScreen
-            if result and pwd_config.identify(result[0][1]) and check_password(result[0][1], passwd):
-                user_id = result[0][0]  # Get the user ID from the database
-                print(f"Login successful")
-                self.parent.get_screen('MainScreen').user_id = user_id  # Set the user ID as an attribute of the MainScreen instance
-                self.parent.current = "MainScreen"
-            else:
-                print("Incorrect email or password")
-                dialog = MDDialog(title="Incorrect password or username. Try again")
-                dialog.open()
+    else:
+        # If the user does not exist or the password is incorrect, show an error dialog
+        dialog = MDDialog(title="Incorrect password or username. Try again")
+        dialog.open()
+        
+        # Reset the input fields
+        self.ids.uname.text = ""
+        self.ids.passwd.text = ""
 
-        # Catch any exceptions and print an error message
-        except Exception as e:
-            print(f"Error: {e}")
 ```
 
 ```.py
