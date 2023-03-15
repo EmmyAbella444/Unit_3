@@ -116,8 +116,8 @@ The figure 8 is a flowchart for the function save that begins by retrieving the 
 | 25      	| Improve the documentation - criteria C                                                                                         	| Add more explanations                                                                                                 	| 30 minutes    	| 3 march                	| C         	|
 | 26      	| Fix the errors pointed on the test plan                                                                                        	| Improve the code functionality                                                                                        	| 3 hours       	| 6 march                	| C         	|
 | 27      	| Present the final product to client                                                                                            	| Gte final approve                                                                                                     	| 20 minutes    	| 8 march                	|           	|
-| 28      	| Record video of program working                                                                                                	| Video of program working with explanations about the functionality                                                    	| 1 hour        	| 7 march                	| C         	|
-
+| 28      	| Record video of program working                                                                                                	| Video of program working with explanations about the functionality                                                    	| 1 hour        	| 9 march                	| C         	|
+| 29      	| Add citations                                                                                               	| Ciatations for resources used throughout the development of my solution                                               	| 1 hour        	| 9 march                	| C         	|
 # Criteria C: Development
 ## Existing tools
 
@@ -265,52 +265,48 @@ The LoginScreen class has a method try_login() which is called when the user tri
 ```.py
 class RegistrationScreen(MDScreen):
     def try_register(self):
-        # Regular expressions for password and email patterns
-        pattern = "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-        email_pattern = "r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'"
+    pattern = r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$'
+    email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    uname = self.ids.uname_in.text
+    email = self.ids.email_in.text
+    passwd = self.ids.passwd_in.text
+    passwd_check = self.ids.passwd_check.text
 
-        # Get the user input for username, email, password and password check
-        uname = self.ids.uname_in.text
-        email = self.ids.email_in.text
-        passwd = self.ids.passwd_in.text
-        passwd_check = self.ids.passwd_check.text
+    if uname == "":
+        # Display a dialog if the username is empty
+        dialog = MDDialog(title="Do not forget your username")
+        dialog.open()
 
-        # Check if the user input for username is empty
-        if uname == "":
-            self.ids.uname_in.hint_text = "Do not forget your username !"
+    elif not re.match(email_pattern, email):
+        # Display a dialog if the email is not valid
+        dialog = MDDialog(title="Enter a valid email")
+        dialog.open()
 
-        # Check if the user input for email matches the email pattern
-        if not re.match(email_pattern, email):
-            # Email is not valid
-            self.ids.email_in.hint_text = "Enter a valid email !"
+    elif not re.match(pattern, passwd):
+        # Display a dialog if the password does not follow the requirements
+        dialog = MDDialog(title="Password doesn't meet the requirements",
+                          text="The password entered must be:\n- At least 8 characters,\n- One capital letter,\n- One lowercase letter,\n- One symbol: !@#$%^&*()_+")
+        dialog.open()
 
-        # Check if the user input for password matches the password pattern
-        if re.match(pattern, passwd):
-            print("Valid password")
-            # Check if the password and the password check fields match
-            if passwd != passwd_check:
-                # Passwords do not match, set error flags and show hint text
-                self.ids.passwd_check.error = True
-                self.ids.passwd.error = True
-                self.ids.passwd_check.hint_text= "The passwords must match"
-            else:  # Passwords match
-                # Hash the password and insert user details into the database
-                hash = hash_password(passwd)
-                db = database_handler(namedb="Project.db")
-                query = f"INSERT into users (email,password, username) values('{email}', '{hash}','{uname}')"
-                db.run_save(query)
-                db.close()
-                # Show success dialog and switch to LoginScreen
-                print("Registration completed")
-                self.parent.current = "LoginScreen"
-                dialog = MDDialog(title="Congrats you created your account!")
-                dialog.open()
-        else:
-            # Password does not meet requirements, show error dialog
-            dialog = MDDialog(title="Password doesn't meet the requirements",
-                              text="The password entered must be:\n- At least 8 characters,\n- One capital letter,\n- One lowercase letter,\n- One symbol: !@#$%^&*()_+")
-            dialog.open()
-            return
+    elif passwd != passwd_check:
+        # Display a dialog if the password does not match the confirmation password
+        dialog = MDDialog(title="The password must match")
+        dialog.open()
+
+    else:
+        # Hash the password and insert the user's information into the database
+        hash = hash_password(passwd)
+        db = database_handler(namedb="Project.db")
+        query = f"INSERT into users (email,password, username) values('{email}', '{hash}','{uname}')"
+        db.run_save(query)
+        db.close()
+        
+        # Display a dialog to notify the user that registration is complete
+        print("Registration completed")
+        self.parent.current = "LoginScreen"
+        dialog = MDDialog(title="Congrats you created your account!")
+        dialog.open()
+
 ```
 The RegistrationScreen class has a method try_register() which is called when the user tries to register a new account. It first checks if the user has entered a valid username, email, password, and password check. Then it checks if the entered password meets certain requirements such as length, one capital letter, one lowercase letter, and one symbol. If the password meets the requirements and the password and password check fields match, it hashes the password and inserts the user details into the database. Finally, it shows a success dialog and switches to the LoginScreen. If the password does not meet the requirements or the passwords do not match, it shows an error dialog.
 
@@ -523,7 +519,12 @@ class TableScreen(MDScreen):
 
 ```
 # Criteria D: Functionality
-## A 7 min video demonstrating the proposed solution with narration
+## A video demonstrating the proposed solution with narration
+
+
+https://user-images.githubusercontent.com/111819437/225452470-730bb263-d6d0-4a6c-93db-d38ae4a59037.mov
+
+
 
 ### Citations
 "Why Choose Python." Python.org, Python Software Foundation, https://www.python.org/about/gettingstarted/. Accessed 9 Mar. 2023.
