@@ -56,16 +56,22 @@ The first table is called "users," and it is responsible for storing all user-re
 The second table is called "habits," and it stores information about the users' habits, such as sleep, water intake, reading, journaling, gym , studying, overall, total ,notes, date, id, and user. The habits table is closely related to the users' table since each user will have their set of habits and associated data stored within this table.
 By using a database schema with two tables, we can ensure that the data is organized, easy to manage, and efficient to query. The users' table stores all user data, which enables efficient user management, while the habits table allows the program to track and analyze each user's progress over time. This organized data will help the application function more effectively, enabling users to easily track their progress and achieve their goals.
 
-## Flow Diagram
+## Flow Diagrans
 ## Flow diagram to create a new table
 ![flow diagram 1 (1)](https://user-images.githubusercontent.com/111819437/225429434-8b775e10-0902-45bc-8ea4-fbca3556b70b.png)
+
 The figure 6 is a flowchart fot the create_table method that creates a database table called HABITS using SQL. The query variable contains an SQL command that creates the HABITS table with several columns, including id, user, date, gym, studying, sleeping, reading, journaling, water, notes, overall, and total. The id column is set as the primary key, which means that it uniquely identifies each row in the table. The if not exists clause in the CREATE TABLE command ensures that the table is only created if it doesn't already exist. This prevents an error from occurring if the table is already present in the databaseand then executes the SQL command and creates the HABITS table in the database.
 
 ## Flow diagram fo the log in function
 ![flow diagram 2 (1)](https://user-images.githubusercontent.com/111819437/225430359-613aa6c9-e5a7-4a12-a8f5-006a83721d42.png)
+
 The figure 6 is a flowchart for the log in function that first,retrieves the inputted username and password from the relevant text input fields. Then, it queries the database for a user with the matching username, using a SELECT statement.If a matching user is found in the database, the code checks whether the inputted password is correct by comparing it with the hashed password stored in the database. If the password is correct, the user ID associated with that account is retrieved from the database and assigned as an attribute to the MainScreen instance. Then, the application's current screen is changed to the main screen. Finally, the input fields are reset.If no matching user is found in the database or the password is incorrect, an error message is displayed using a dialog box. The input fields are also reset in this case to allow the user to try again.
 
-## Flow diagram for
+## Flow diagram for save function
+![flow diagram 2 (2)](https://user-images.githubusercontent.com/111819437/225434915-132a21c9-5990-446d-9743-cda07ae56578.png)
+The function begins by retrieving the values entered by the user for the date, notes, and overall rating. It then retrieves the user id and the values of checkboxes that indicate the user's progress in different areas (e.g. gym, studying, sleeping, etc.). It calculates the total of the checkboxes to get an total progress score. Next, the function checks to make sure that all the required fields have been filled in by the user. If any of them are missing, an error message is displayed and the function returns without saving the progress data.The function then checks the database to see if progress data has already been added for the current day by the user. If it has, an error message is displayed and the function returns without saving the progress data.If progress data has not already been added for the current day, the function inserts the progress data into the database. Finally, a success message is displayed to the user to indicate that their progress has been saved.
+
+
 
 
 
@@ -140,7 +146,7 @@ class add(MDScreen):
         note = self.ids.notes.text
         overal = self.ids.overal.text
 
-        # Get user id and checkbox values from previous screen
+        # Get user id and checkbox values 
         user_id = self.parent.get_screen('MainScreen').user_id
         gym = add.checks[0]
         study = add.checks[1]
@@ -196,15 +202,10 @@ class add(MDScreen):
 ```
 ### Success criteria 2:The solution must be designed with security and privacy in mind, with measures to protect the user's data.
 To protect users data I created a log in and registration system focusing on security, using the following methods:
-
-Password hashing: When a user registers, their password is hashed before being stored in the database. This is important because it ensures that even if an attacker gains access to the database, they won't be able to see the user's actual password.
-
-Regular expression pattern matching: The code includes regular expression pattern matching to ensure that the user enters a valid email address and a strong password that meets specific criteria. This helps to prevent malicious attacks that rely on weak passwords or email spoofing.
-
-Error handling: The code includes error handling to catch any exceptions that might occur during the login or registration process. This helps to prevent sensitive information from being leaked in error messages.
-
-Dialogue boxes: The code displays dialogue boxes for certain actions, such as when a user successfully registers or enters an incorrect username or password. This helps to prevent sensitive information from being displayed on the screen.
-
+-Password hashing: When a user registers, their password is hashed before being stored in the database. This is important because it ensures that even if an attacker gains access to the database, they won't be able to see the user's actual password.
+-Regular expression pattern matching: The code includes regular expression pattern matching to ensure that the user enters a valid email address and a strong password that meets specific criteria. This helps to prevent malicious attacks that rely on weak passwords or email spoofing.
+-Error handling: The code includes error handling to catch any exceptions that might occur during the login or registration process. This helps to prevent sensitive information from being leaked in error messages.
+-Dialogue boxes: The code displays dialogue boxes for certain actions, such as when a user successfully registers or enters an incorrect username or password. This helps to prevent sensitive information from being displayed on the screen.
 
 
 ```.py
@@ -249,7 +250,7 @@ class LoginScreen(MDScreen):
         self.ids.passwd.text = ""
 
 ```
-
+The LoginScreen class has a method try_login() which is called when the user tries to login. It first retrieves the username and password entered by the user from the input fields. Then it connects to a database named "Project.db" and searches for a user with the given username in the database. If the user is found and the entered password matches with the password stored in the database, it retrieves the user ID from the database and sets it as an attribute of the MainScreen instance. Finally, it switches to the MainScreen and resets the input fields. If the user is not found or the password is incorrect, it shows an error dialog and resets the input fields.
 ```.py
 class RegistrationScreen(MDScreen):
     def try_register(self):
@@ -300,9 +301,9 @@ class RegistrationScreen(MDScreen):
             dialog.open()
             return
 ```
-The applications also protect user data by querying the database to retrieve only the information that pertains to the specific user who is currently logged in. This is achieved through the update method, where the user's ID is retrieved from the parent screen (MainScreen) and used in a database query to retrieve only rows from the HABITS table that have the matching user value. The retrieved data is then used to update the rows in the MDDataTable instance, ensuring that only the user's relevant data is displayed in the table.
+The RegistrationScreen class has a method try_register() which is called when the user tries to register a new account. It first checks if the user has entered a valid username, email, password, and password check. Then it checks if the entered password meets certain requirements such as length, one capital letter, one lowercase letter, and one symbol. If the password meets the requirements and the password and password check fields match, it hashes the password and inserts the user details into the database. Finally, it shows a success dialog and switches to the LoginScreen. If the password does not meet the requirements or the passwords do not match, it shows an error dialog.
 
-By only displaying the relevant data for each user, the code helps to protect the privacy and security of their data by preventing other users from seeing or accessing their information.
+
 ```.py
 class TableScreen(MDScreen):
     # Class variable
@@ -374,7 +375,12 @@ class TableScreen(MDScreen):
 
         # Update the data table with the retrieved data
         self.data_table.update_row_data(None, data)
+        
   ```
+The applications also protect user data by querying the database to retrieve only the information that pertains to the specific user who is currently logged in. This is achieved through the update method, where the user's ID is retrieved from the parent screen (MainScreen) and used in a database query to retrieve only rows from the HABITS table that have the matching user value. The retrieved data is then used to update the rows in the MDDataTable instance, ensuring that only the user's relevant data is displayed in the table.
+By only displaying the relevant data for each user, the code helps to protect the privacy and security of their data by preventing other users from seeing or accessing their information.
+
+
 ### Success criteria 3: The solution must include a notes session for each day.
 I have satisfied the criteria by implementing KivyMD widgets to create a label and a text field. The label prompts the user to input their notes by displaying the text "How was your day?" Additionally, the input is validated to detect cases where the user has not written anything and displays an error dialog accordingly.
 ```.kv
