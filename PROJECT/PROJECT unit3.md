@@ -128,7 +128,7 @@ The figure 8 is a flowchart for the function save that begins by retrieving the 
 | SQlite                        	| Database                      	| passlib           	|
 | KivyMD                        	| Encryption                    	| re                	|
 | Github Copilot                	| For loops                     	| database_handler  	|
-| codeGPT                       	| If-else statements            	| encrypto_password 	|
+|                                 	| If-else statements            	| encrypto_password 	|
 |                               	| ORM (Object Relation Mapping) 	|                   	|
 |                               	| Index                         	|                   	|
 
@@ -525,4 +525,19 @@ class TableScreen(MDScreen):
 # Criteria D: Functionality
 ## A 7 min video demonstrating the proposed solution with narration
 
+### Citations
+"Why Choose Python." Python.org, Python Software Foundation, https://www.python.org/about/gettingstarted/. Accessed 9 Mar. 2023.
 
+Lucidchart. "Diagram Maker & Visual Solution." Lucidchart, Lucid Software Inc., 2023, https://www.lucidchart.com/. Acessed 9 Mar. 2023 
+
+Free Design Tool: Presentations, Video, Social Media | Canva, https://www.canva.com/. Accessed 9 March 2023.
+
+JetBrains. PyCharm Professional. Version 2023.3.2, JetBrains, 2023. Accessed Mar. 9 2023 
+
+“Building a Simple Application using KivyMD in Python.” GeeksforGeeks, 7 June 2022, https://www.geeksforgeeks.org/building-a-simple-application-using-kivymd-in-python/. Accessed 9 March 2023.
+
+Elder, John. “Creating A Login Screen With KivyMD – Python Kivy GUI Tutorial #44 – KivyCoder.com.” KivyCoder.com, 22 March 2021, https://kivycoder.com/creating-a-login-screen-with-kivymd-python-kivy-gui-tutorial-44/. Accessed 9 March 2023.
+
+“SQL Tutorial.” W3Schools, https://www.w3schools.com/sql/default.asp. Accessed 9 March 2023.
+
+“Text Field — KivyMD documentation.” KivyMD's documentation, https://kivymd.readthedocs.io/en/0.104.1/components/text-field/index.html. Accessed 9 March 2023.
