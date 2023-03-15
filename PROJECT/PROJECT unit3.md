@@ -101,9 +101,259 @@ By using a database schema with two tables, we can ensure that the data is organ
 | 27      	| Present the final product to client                                                                                            	| Gte final approve                                                                                                     	| 20 minutes    	| 8 march                	|           	|
 | 28      	| Record video of program working                                                                                                	| Video of program working with explanations about the functionality                                                    	| 1 hour        	| 7 march                	| C         	|
 
-**Table 2** 
+# Criteria C: Development
+## Existing tools
+
+## Development
+### Success criteria 1: The solution should enable users to track their daily habits, including working out, studying, reading, journaling, water intake and sleeping.
+To fullfill this criteria I created a a screen that enables users to track their daily habits, such as working out, studying, reading, journaling, water intake, and sleeping. The screen uses the KivyMD library to create six checkboxes for users to check the habits they achieved. And also a text field for the user to input their daily reflections, a sliders to track how the user is feeling that day and a date picker to select the date.The show_date_picker method displays a date picker dialog when called. The on_save method is called when the user selects a date from the date picker dialog, and it sets the selected date to the date field on the screen.
+
+Each checkbox has an ID assigned to it, and when clicked, the checkbox_click method is called with the checkbox instance, its value, and an index for the habit (0 to 5).The checks list stores the checkbox values (0 or 1) for all the habits, with the int() function to convert the boolean value of the checkbox (self.active) to an integer value (1 or 0). The save method retrieves the date, notes, overall rating, user ID, and habit values from the corresponding fields and checkboxes. It then calculates the total value of habits achieved and validates the date, note, and overall rating fields. If any of these fields are empty, an error message is displayed. If progress for the given date has already been added, another error message is displayed. Otherwise, the progress is inserted into the HABITS table in the database.
+
+In summary, this code creates a screen with checkboxes for tracking daily habits and provides functionality for saving the progress to a database.
+```.py
+# Create a class for the screen
+class add(MDScreen):
+    # Initialize list to keep track of checkbox values
+    checks = [0, 0, 0, 0, 0, 0]
+
+    # Method to handle checkbox clicks
+    def checkbox_click(self, instance, value, habits):
+        # Update the value in the checks list based on checkbox clicked
+        add.checks[habits] = int(value)
+
+    # Method to save user's progress
+    def save(self):
+        # Get values entered by user
+        day = self.ids.date.text
+        note = self.ids.notes.text
+        overal = self.ids.overal.text
+
+        # Get user id and checkbox values from previous screen
+        user_id = self.parent.get_screen('MainScreen').user_id
+        gym = add.checks[0]
+        study = add.checks[1]
+        sleep = add.checks[2]
+        read = add.checks[3]
+        journal = add.checks[4]
+        water = add.checks[5]
+
+        # Calculate the total of the checkboxes
+        total = gym + study + sleep + read + journal + water
+
+        # If any of the required fields are missing, display an error dialog and return
+        if not day or not note or not overal:
+            dialog = MDDialog(title="Error", text="Please enter a valid date, note and overall rating")
+            dialog.open()
+            return
+
+        # Check if progress for the current day has already been added
+        db = database_handler("Project.db")
+        query = f"SELECT id FROM HABITS WHERE user='{user_id}' AND date='{day}'"
+        result = db.search(query)
+        db.close()
+
+        # If progress for the current day has already been added, display an error dialog and return
+        if result:
+            dialog = MDDialog(title="Error", text="You have already added progress for this date")
+            dialog.open()
+            return
+
+        # Insert progress data into the database
+        query = f"""INSERT INTO HABITS (user, date, gym, studying, sleeping, reading, journaling, water, notes,overal,total)
+                    VALUES ('{user_id}', '{day}', '{gym}', '{study}', '{sleep}', '{read}', '{journal}', '{water}', '{note}','{overal}','{total}')"""
+        db = database_handler("Project.db")
+        db.run_save(query)
+        db.close()
+
+        # Display a success dialog
+        dialog = MDDialog(title="Success", text="Congrats you updated your progress!")
+        dialog.open()
+
+    # Method to display a date picker dialog
+    def show_date_picker(self):
+        date_dialog = MDDatePicker()
+        date_dialog.bind(on_save=self.on_save)
+        date_dialog.open()
+
+    # Method to update the selected date in the text field
+    def on_save(self, instance, value, date_range):
+        self.instance = instance
+        self.value = value
+        self.date_range = date_range
+        self.ids.date.text = str(value)
+```
+### Success criteria 2:The solution must be designed with security and privacy in mind, with measures to protect the user's data.
+To protect users data I created a log in and registration system focusing on security, using the following methods:
+
+Password hashing: When a user registers, their password is hashed before being stored in the database. This is important because it ensures that even if an attacker gains access to the database, they won't be able to see the user's actual password.
+
+Regular expression pattern matching: The code includes regular expression pattern matching to ensure that the user enters a valid email address and a strong password that meets specific criteria. This helps to prevent malicious attacks that rely on weak passwords or email spoofing.
+
+Error handling: The code includes error handling to catch any exceptions that might occur during the login or registration process. This helps to prevent sensitive information from being leaked in error messages.
+
+Dialogue boxes: The code displays dialogue boxes for certain actions, such as when a user successfully registers or enters an incorrect username or password. This helps to prevent sensitive information from being displayed on the screen.
 
 
+
+```.py
+# Define the LoginScreen class that inherits from MDScreen
+class LoginScreen(MDScreen):
+
+    # Method for trying to login
+    def try_login(self):
+        try:
+            # Get the input username and password and print it
+            uname = self.ids.uname.text
+            passwd = self.ids.passwd.text
+
+            # Create an instance of the database_handler class
+            db = database_handler(namedb="Project.db")
+
+            # Query the database for the user ID and password using the provided username
+            query = f"SELECT id, password FROM users WHERE username = '{uname}'"
+            result = db.search(query)
+
+            # If the username and password are correct, login the user and go to MainScreen
+            if result and pwd_config.identify(result[0][1]) and check_password(result[0][1], passwd):
+                user_id = result[0][0]  # Get the user ID from the database
+                print(f"Login successful")
+                self.parent.get_screen('MainScreen').user_id = user_id  # Set the user ID as an attribute of the MainScreen instance
+                self.parent.current = "MainScreen"
+            else:
+                print("Incorrect email or password")
+                dialog = MDDialog(title="Incorrect password or username. Try again")
+                dialog.open()
+
+        # Catch any exceptions and print an error message
+        except Exception as e:
+            print(f"Error: {e}")
+```
+
+```.py
+class RegistrationScreen(MDScreen):
+    def try_register(self):
+        # Regular expressions for password and email patterns
+        pattern = "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+        email_pattern = "r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'"
+
+        # Get the user input for username, email, password and password check
+        uname = self.ids.uname_in.text
+        email = self.ids.email_in.text
+        passwd = self.ids.passwd_in.text
+        passwd_check = self.ids.passwd_check.text
+
+        # Check if the user input for username is empty
+        if uname == "":
+            self.ids.uname_in.hint_text = "Do not forget your username !"
+
+        # Check if the user input for email matches the email pattern
+        if not re.match(email_pattern, email):
+            # Email is not valid
+            self.ids.email_in.hint_text = "Enter a valid email !"
+
+        # Check if the user input for password matches the password pattern
+        if re.match(pattern, passwd):
+            print("Valid password")
+            # Check if the password and the password check fields match
+            if passwd != passwd_check:
+                # Passwords do not match, set error flags and show hint text
+                self.ids.passwd_check.error = True
+                self.ids.passwd.error = True
+                self.ids.passwd_check.hint_text= "The passwords must match"
+            else:  # Passwords match
+                # Hash the password and insert user details into the database
+                hash = hash_password(passwd)
+                db = database_handler(namedb="Project.db")
+                query = f"INSERT into users (email,password, username) values('{email}', '{hash}','{uname}')"
+                db.run_save(query)
+                db.close()
+                # Show success dialog and switch to LoginScreen
+                print("Registration completed")
+                self.parent.current = "LoginScreen"
+                dialog = MDDialog(title="Congrats you created your account!")
+                dialog.open()
+        else:
+            # Password does not meet requirements, show error dialog
+            dialog = MDDialog(title="Password doesn't meet the requirements",
+                              text="The password entered must be:\n- At least 8 characters,\n- One capital letter,\n- One lowercase letter,\n- One symbol: !@#$%^&*()_+")
+            dialog.open()
+            return
+```
+The applications protect user data by querying the database to retrieve only the information that pertains to the specific user who is currently logged in. This is achieved through the update method, where the user's ID is retrieved from the parent screen (MainScreen) and used in a database query to retrieve only rows from the HABITS table that have the matching user value. The retrieved data is then used to update the rows in the MDDataTable instance, ensuring that only the user's relevant data is displayed in the table.
+
+By only displaying the relevant data for each user, the code helps to protect the privacy and security of their data by preventing other users from seeing or accessing their information.
+
+class TableScreen(MDScreen):
+    # Class variable
+    data_table = None
+
+    def on_pre_enter(self, *args):
+        # Create a data table with defined properties
+        self.data_table = MDDataTable(
+            size_hint=(.8, .5),
+            pos_hint={"center_x": .5, "center_y": .5},
+            use_pagination=False,
+            check=True,
+            # Define column names and widths
+            column_data=[("id", 20),
+                         ("USER", 20),
+                         ("DATE", 20),
+                         ("GYM", 20),
+                         ("STUDY", 20),
+                         ("SLEEP", 20),
+                         ("READ", 20),
+                         ("JOURNAL", 20),
+                         ("WATER", 20),
+                         ("NOTES", 20),
+                         ("OVERALL", 20),
+                         ("TOTAL", 20),
+
+                         ]
+        )
+
+        # Bind row and check press events to their respective functions
+        self.data_table.bind(on_row_press=self.row_pressed)
+        self.data_table.bind(on_check_press=self.check_pressed)
+
+        # Add the table to the GUI
+        self.add_widget(self.data_table)
+
+        # Call the update function to populate the table with data
+        self.update()
+
+    # Function to be called when a row is pressed
+    def row_pressed(self, table, row):
+        print("a row was pressed", row.text)
+
+    # Function to be called when a check mark is pressed
+    def check_pressed(self, table, current_row):
+        print("a check mark was pressed", current_row)
+
+    # Function to delete checked rows from the table and database
+    def delete(self):
+        checked_rows = self.data_table.get_row_checks()
+        db = database_handler("Project.db")
+        for r in checked_rows:
+            id = r[0]
+            query = f"delete from HABITS where id={id}"
+            db.run_save(query)
+        db.close()
+        self.update()
+
+    # Function to update the data table with habit data for the current user
+    def update(self):
+        # Get the current user ID from the main screen
+        user_id = self.parent.get_screen('MainScreen').user_id
+
+        # Query the database for habit data for the current user
+        query = f"SELECT * FROM HABITS WHERE user={user_id}"
+        db = database_handler("Project.db")
+        data = db.search(query)
+        db.close()
+
+        # Update the data table with the retrieved data
+        self.data_table.update_row_data(None, data)
 
 
 # Criteria D: Functionality
