@@ -64,8 +64,9 @@ SELECT * from customers where customer_id=12 or customer_id=13 or customer_id=15
 ```
 ## Question 3
 The withdrwas and add does not match in these accounts:
---12,Matthew,Martin,matthewmartin@email.com
---13,Ashley,Taylor,ashleytaylor@email.com
---15,Nicholas,Lewis,nicholaslewis@email.com
---17,David,Clark,davidclark@email.com
---19,Daniel,Green,danielgreen@email.com
+
+12,Matthew,Martin,matthewmartin@email.com
+13,Ashley,Taylor,ashleytaylor@email.com
+15,Nicholas,Lewis,nicholaslewis@email.com
+17,David,Clark,davidclark@email.com
+19,Daniel,Green,danielgreen@email.com
