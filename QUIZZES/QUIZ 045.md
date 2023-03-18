@@ -3,6 +3,9 @@
 
 ![Screen Shot 2023-02-14 at 23 02 30](https://user-images.githubusercontent.com/111819437/218767547-e452fc1e-d589-441a-8c9a-3372cd4e6c14.png)
 
+## UML
+![uml (2)](https://user-images.githubusercontent.com/111819437/226109400-b3a32c33-8880-4f17-b55d-03f32c921f72.png)
+
 ## Code and evidence
 ```.py
 SELECT * from customers;
@@ -59,3 +62,10 @@ SELECT * from customers where customer_id=12 or customer_id=13 or customer_id=15
 --17,David,Clark,davidclark@email.com
 --19,Daniel,Green,danielgreen@email.com
 ```
+## Question 3
+The withdrwas and add does not match in these accounts:
+--12,Matthew,Martin,matthewmartin@email.com
+--13,Ashley,Taylor,ashleytaylor@email.com
+--15,Nicholas,Lewis,nicholaslewis@email.com
+--17,David,Clark,davidclark@email.com
+--19,Daniel,Green,danielgreen@email.com
